@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GesfarmMauiAndroid.Domain.Views.Inventory.InventoryListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:GesfarmMauiAndroid.Domain.ViewModel.Inventory"
+    Title="Inventario">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
+    <StackLayout Margin="5">
+
+        <Label Text="{Binding LastUpdate, StringFormat='Ultima actualizacion: {0}'}" />
+        <HorizontalStackLayout Margin="0,10,0,10">
+            <Label
+                Margin="0,0,20,0"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="Farmacia"
+                VerticalOptions="Center" />
+            <RadioButton
+                Margin="10,0,10,0"
+                Content="FFD"
+                IsChecked="{Binding OriginFFD}"
+                VerticalOptions="Center" />
+            <RadioButton
+                Margin="10,0,10,0"
+                Content="VP"
+                IsChecked="{Binding OriginVP}"
+                VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+
+        <Entry
+            FontSize="Medium"
+            IsEnabled="{Binding Busy}"
+            Text="{Binding FilterValue}" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0"
+                Margin="5"
+                Command="{Binding UpdateCommand}"
+                FontSize="20"
+                IsEnabled="{Binding Busy}"
+                Text="Actualizar" />
+            <Button
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Margin="5"
+                Command="{Binding FilterCommand}"
+                FontSize="20"
+                IsEnabled="{Binding Busy}"
+                Text="Buscar" />
+
+        </Grid>
+
+        <CollectionView
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding FilteredInventory}"
+            VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Margin="5">
+                        <Label FontAttributes="Bold" Text="{Binding Codigo}" />
+                        <Label FontAttributes="Italic" Text="{Binding Descripcion}" />
+                        <Label FontAttributes="Italic" Text="{Binding Existen, StringFormat='Existen: {0}'}" />
+                        <Label FontAttributes="Italic" Text="{Binding CostoUsd, StringFormat='Costo Usd: {0}'}" />
+                        <Label FontAttributes="Italic" Text="{Binding PrecioBs, StringFormat='Precio Bs: {0}'}" />
+                        <toolkit:Expander>
+                            <toolkit:Expander.Header>
+                                <Button
+                                    Padding="0"
+                                    FontSize="Micro"
+                                    HeightRequest="20"
+                                    Text="Princpios Activos" />
+                            </toolkit:Expander.Header>
+                            <CollectionView ItemsLayout="VerticalList" ItemsSource="{Binding ListPrinAct}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label
+                                                Margin="20,0,0,0"
+                                                FontAttributes="Italic"
+                                                Text="{Binding Dsc}" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </toolkit:Expander>
+                    </StackLayout>
+
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </StackLayout>
+
+
+
+</ContentPage>

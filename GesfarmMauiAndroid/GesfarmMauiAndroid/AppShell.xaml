@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="GesfarmMauiAndroid.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:home="clr-namespace:GesfarmMauiAndroid.Domain.Views.Home"
+    xmlns:inventory="clr-namespace:GesfarmMauiAndroid.Domain.Views.Inventory"
+    xmlns:local="clr-namespace:GesfarmMauiAndroid"
+    Title="GesfarmMauiAndroid">
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <VerticalStackLayout Padding="20">
+                <Label
+                    Padding="20"
+                    BackgroundColor="{StaticResource Primary}"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    Text="{Binding Title}"
+                    TextColor="{StaticResource PrimaryDarkText}"
+                    VerticalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <ShellContent
+        Title="Inicio"
+        ContentTemplate="{DataTemplate home:HomePage}"
+        Route="HomePage" />
+
+    <ShellContent
+        Title="Inventario"
+        ContentTemplate="{DataTemplate inventory:InventoryListPage}"
+        Route="InventoryListPage" />
+
+</Shell>
